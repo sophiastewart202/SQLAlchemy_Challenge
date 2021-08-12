@@ -69,8 +69,25 @@ def stations():
     # Create our session (link) from Python to the DB
     session = Session(engine)
     
+    # Query to retrieve all station data
+    results = session.query(station.id, station.station, station.name).all()
+    
+    session.close()
+    
+    # Convert the query results to a list of dictionaries
+    stn_data = []
+    for stn in results:
+        stn_dict = {}
+        stn_dict['id'] = stn[0]
+        stn_dict['station'] = stn[1]
+        stn_dict['name'] = stn[2]
+    
+        stn_data.append(stn_dict)
+    
     # Return a JSON list of stations from the dataset.
-
+    return jsonify(stn_data)
+    
+    
 # Temperature Observations page
 @app.route('/api/v1.0/tobs')
 def tobs():
