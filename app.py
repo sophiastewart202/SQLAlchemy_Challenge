@@ -38,7 +38,7 @@ def home():
     
     # List all routes that are available.
     return(
-    "Welcome to Hawaii's Climate App!<br/>
+    "Welcome to Hawaii's Climate App!<br/>"
     "--------------------------------<br/>"
     "Available Routes:<br/>"
     "/api/v1.0/precipitation<br/>"
@@ -61,6 +61,11 @@ def precipitation():
     # Create our session (link) from Python to the DB
     session = Session(engine)
     
+    # Calculate last year of data
+    last_date = session.query(measurement.date).order_by(measurement.date.desc()).first()
+    one_yr_ago = dt.date(2017,8,23)-dt.timedelta(days=365)
+    
+
     # Query to retreive all precipitation data
     results = session.query(measurement.date, measurement.prcp)\
     .filter(measurement.date>=one_yr_ago).all()
@@ -119,6 +124,10 @@ def tobs():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
+    # Calculate last year of data
+    last_date = session.query(measurement.date).order_by(measurement.date.desc()).first()
+    one_yr_ago = dt.date(2017,8,23)-dt.timedelta(days=365)
+
     # Query the dates and temperature observations of the most active station for the last year of data.
     most_active_stn = session.query(measurement.station, func.count(measurement.station))\
     .group_by(measurement.station).order_by(func.count(measurement.station).desc()).all()[0][0]
@@ -138,7 +147,7 @@ def tobs():
 
 
 @app.route(f'/api/v1.0/<start>')
-def summary_from(start)
+def summary_from(start):
     print('Tobs summary page requested')
     
     # Create our session (link) from Python to the DB
@@ -160,7 +169,7 @@ def summary_from(start)
             func.max(measurement.tobs)).\
             filter(measurement.date >= start_date).all()
     
-     try:
+    try:
         # convert the provided start & end dates into a format the calc_temps function can read
         start_date = dt.datetime.strptime(start, "%Y-%m-%d")
         
@@ -188,7 +197,7 @@ def summary_from(start)
     
 
 @app.route('/api/v1.0/<start>/<end>')
-def summary_btwn(start, end)
+def summary_btwn(start, end):
     print('Tobs summary page requested')
     
     # Create our session (link) from Python to the DB

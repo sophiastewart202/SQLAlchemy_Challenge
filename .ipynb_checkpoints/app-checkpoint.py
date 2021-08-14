@@ -38,7 +38,7 @@ def home():
     
     # List all routes that are available.
     return(
-    "Welcome to Hawaii's Climate App!<br/>
+    "Welcome to Hawaii's Climate App!<br/>"
     "--------------------------------<br/>"
     "Available Routes:<br/>"
     "/api/v1.0/precipitation<br/>"
