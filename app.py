@@ -12,7 +12,7 @@ from sqlalchemy.sql import select
 from flask import Flask, jsonify
 
 # Set up
-engine = create_engine("sqlite:///Resources/hawaii.sqlite", echo=False)
+engine = create_engine("sqlite:///Resources\hawaii.sqlite", echo=False)
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -39,15 +39,15 @@ def home():
     # List all routes that are available.
     return(
     "Welcome to Hawaii's Climate App!<br/>"
-    "--------------------------------<br/>"
+    "-------------------------------------------<br/>"
     "Available Routes:<br/>"
     "/api/v1.0/precipitation<br/>"
     "/api/v1.0/stations<br/>"
     "/api/v1.0/tobs<br/>"
-    "/api/v1.0/<start><br/>"
-    "/api/v1.0/<start>/<end><br/>"
-    "---------------------------------------------------------------------<br/>"
-    "Note: Replace <start> and <end> with query dates in YYYY-MM-DD format.<br/>"
+    "/api/v1.0/&lt;start&gt;<br/>"
+    "/api/v1.0/&lt;start&gt;/&lt;end&gt;<br/>"
+    "---------------------------------------------------------------------------------------------<br/>"
+    "Note: Replace &lt;start&gt; and &lt;end&gt; with query dates in YYYY-MM-DD format.<br/>"
     )
 
 
